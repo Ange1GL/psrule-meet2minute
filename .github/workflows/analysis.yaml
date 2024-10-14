@@ -1,0 +1,26 @@
+name: Analyze repository
+
+# Ejecuta el análisis en cada push o pull request hacia la rama main
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  analyze:
+    name: Analyze repository
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso para obtener el código del repositorio
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Paso para ejecutar el análisis de PSRule
+      - name: Run PSRule analysis
+        uses: microsoft/ps-rule@v2.9.0
+        with:
+          modules: PSRule.Rules.Azure
